@@ -11,7 +11,6 @@ const dbo = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-
 // This section will help you get a list of all the jobs.
 jobRoutes.route("/jobs").get(function (req, res) {
   let db_connect = dbo.getDb("myPortfolioData");
@@ -27,13 +26,11 @@ jobRoutes.route("/jobs").get(function (req, res) {
 // This section will help you get a single job by id
 jobRoutes.route("/job/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
-  db_connect
-      .collection("jobs")
-      .findOne(myquery, function (err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
+  let myquery = { _id: ObjectId(req.params.id) };
+  db_connect.collection("jobs").findOne(myquery, function (err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
 });
 
 // This section will help you create a new job.
@@ -54,9 +51,9 @@ jobRoutes.route("/job/add").post(function (req, response) {
 });
 
 // This section will help you update a job by id.
-jobRoutes.route("/update/:id").post(function (req, response) {
+jobRoutes.route("/job/update/:id").post(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
+  let myquery = { _id: ObjectId(req.params.id) };
   let newvalues = {
     $set: {
       job_dates: req.body.job_dates,
@@ -77,9 +74,9 @@ jobRoutes.route("/update/:id").post(function (req, response) {
 });
 
 // This section will help you delete a job
-jobRoutes.route("/:id").delete((req, response) => {
+jobRoutes.route("/job/:id").delete((req, response) => {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
+  let myquery = { _id: ObjectId(req.params.id) };
   db_connect.collection("jobs").deleteOne(myquery, function (err, obj) {
     if (err) throw err;
     console.log("1 job deleted");
