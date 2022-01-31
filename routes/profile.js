@@ -40,12 +40,10 @@ profileRoutes.route("/profile/:id").get(function (req, res) {
 profileRoutes.route("/profile/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
-    profile_dates: req.body.profile_dates,
-    profile_name: req.body.profile_name,
-    profile_profile: req.body.profile_profile,
-    profile_tasks: req.body.profile_tasks,
+    profile_fullname: req.body.profile_fullname,
+    profile_city: req.body.profile_city,
     profile_image: req.body.profile_image,
-    profile_link: req.body.profile_link,
+    profile_title: req.body.profile_title,
   };
   db_connect.collection("profiles").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -59,12 +57,10 @@ profileRoutes.route("/profile/update/:id").post(function (req, response) {
   let myquery = { _id: ObjectId( req.params.id )};
   let newvalues = {
     $set: {
-      profile_dates: req.body.profile_dates,
-      profile_name: req.body.profile_name,
-      profile_profile: req.body.profile_profile,
-      profile_tasks: req.body.profile_tasks,
+      profile_fullname: req.body.profile_fullname,
+      profile_city: req.body.profile_city,
       profile_image: req.body.profile_image,
-      profile_link: req.body.profile_link,
+      profile_title: req.body.profile_title,
     },
   };
   db_connect
